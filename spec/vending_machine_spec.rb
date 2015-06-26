@@ -4,23 +4,19 @@ describe VendingMachine do
     expect(subject.display).to eq 'INSERT COIN'
   end
 
-  context 'when inserting coins' do
-
-    it 'displays the value of a nickel' do
-      subject.insert :nickel
-      expect(subject.display).to eq '0.05'
-    end
-
-    it 'displays the value of a dime' do
-      subject.insert :dime
-      expect(subject.display).to eq '0.10'
-    end
-    
-    it 'displays the value of a quarter' do
-      subject.insert :quarter
-      expect(subject.display).to eq '0.25'
-    end
-
+  it 'displays 5 cents when a nickel inserted' do
+    subject.insertCoin(:nickel)
+    expect(subject.display).to eq '0.05'
   end
 
+  it 'displays 15 cents when a nickel and dime are inserted' do
+    subject.insertCoin(:nickel)
+    subject.insertCoin(:dime)
+    expect(subject.display).to eq '0.15'
+  end
+
+  it 'displays 25 cents when a quarter is inserted' do
+    subject.insertCoin(:quarter)
+    expect(subject.display).to eq '0.25'
+  end
 end
