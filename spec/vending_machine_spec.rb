@@ -117,4 +117,11 @@ describe VendingMachine do
 
   end
 
+  it 'should not allow buying of chips if insufficient funds' do
+    subject.insertCoin(:dime)
+    subject.press_chips
+    expect(subject.item_bin).to contain_exactly()
+    expect(subject.display).to eq '0.10'
+  end
+
 end
