@@ -11,6 +11,7 @@ class VendingMachine
   def initialize
     @sum = 0
     @coin_return = []
+    @coins = []
   end
 
   def display
@@ -20,8 +21,16 @@ class VendingMachine
   def insertCoin(coin)
     if VALUES.has_key?(coin)
       @sum += VALUES[coin]
+      @coins << coin
     else
       @coin_return << coin
     end
   end
+
+  def return_coins
+    @sum = 0
+    @coin_return = @coins
+    @coins = []
+  end
+
 end

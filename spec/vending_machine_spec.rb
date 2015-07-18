@@ -59,6 +59,24 @@ describe VendingMachine do
     expect(subject.display).to eq '0.40'
   end
 
+  context 'return coins' do
+
+    before :each do
+      subject.insertCoin(:quarter)
+      subject.insertCoin(:dime)
+    end
+
+    it 'display should reset when the coin return is pressed' do
+      subject.return_coins
+      expect(subject.display).to eq 'INSERT COIN'
+    end
+
+    it 'should return exact coins when the coin return is pressed' do
+      subject.return_coins
+      expect(subject.coin_return).to contain_exactly(:dime, :quarter)
+    end
+  end
+
   context 'when an invalid coin is inserted' do
     it 'sends invalid coin to return and display remains unchanged' do
       expect { subject.insertCoin(:penny) }.not_to change { subject.display }
