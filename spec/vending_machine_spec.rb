@@ -1,7 +1,7 @@
-def insert_three_quarters
-  subject.insertCoin(:quarter)
-  subject.insertCoin(:quarter)
-  subject.insertCoin(:quarter)
+def insert_multiple_coins(coin, quantity)
+  quantity.times do
+    subject.insertCoin(coin.to_sym)
+  end
 end
 
 describe VendingMachine do
@@ -101,7 +101,7 @@ describe VendingMachine do
   context 'buy chips' do
 
     before :each do
-      insert_three_quarters
+      insert_multiple_coins(:quarter, 3)
       subject.insertCoin(:dime)
     end
 
