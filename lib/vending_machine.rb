@@ -1,6 +1,6 @@
 class VendingMachine
 
-  attr_reader :coin_return
+  attr_reader :coin_return, :item_bin
 
   VALUES = {
     :nickel => 5,
@@ -8,10 +8,15 @@ class VendingMachine
     :quarter => 25
   }
 
+  ITEMS = {
+      :chips => 0.75
+  }
+
   def initialize
     @sum = 0
     @coin_return = []
     @coins = []
+    @item_bin = []
   end
 
   def display
@@ -28,8 +33,19 @@ class VendingMachine
   end
 
   def return_coins
-    @sum = 0
     @coin_return = @coins
+    zero_out_money
+  end
+
+  def press_chips
+    if display.to_f >= ITEMS[:chips]
+      @item_bin << :chips
+      zero_out_money
+    end
+  end
+
+  def zero_out_money
+    @sum = 0
     @coins = []
   end
 

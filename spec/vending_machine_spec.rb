@@ -1,3 +1,9 @@
+def insert_three_quarters
+  subject.insertCoin(:quarter)
+  subject.insertCoin(:quarter)
+  subject.insertCoin(:quarter)
+end
+
 describe VendingMachine do
 
   context 'when no coins have been inserted' do
@@ -91,4 +97,24 @@ describe VendingMachine do
       expect(subject.coin_return).to contain_exactly(:penny, :peso)
     end
   end
+
+  context 'buy chips' do
+
+    before :each do
+      insert_three_quarters
+      subject.insertCoin(:dime)
+    end
+
+    it 'should allow customer to buy chips when enough money is available' do
+      subject.press_chips
+      expect(subject.item_bin).to contain_exactly(:chips)
+    end
+
+    it 'should remove value of chips from display upon successful purchase' do
+      subject.press_chips
+      expect(subject.display).to eq 'INSERT COIN'
+    end
+
+  end
+
 end
